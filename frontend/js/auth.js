@@ -56,7 +56,6 @@ async function login() {
 }
 
 
-
 async function authRequest(endpoint, body) {
     try {
         const response = await fetch(`http://127.0.0.1:8000/${endpoint}`, {
@@ -65,26 +64,23 @@ async function authRequest(endpoint, body) {
             body: JSON.stringify(body),
         });
 
-
-
         const data = await response.json();
 
-        console.log("🔑 Received Data:", data); // Debugging output
-
-
-        alert(data.message || data.error);
-
         if (endpoint === "login" && response.ok) {
-            localStorage.setItem("token", data.access_token); // Store token
-            console.log("✅ Token stored:", data.access_token); // Debugging output
-            window.location.href = "index.html"; // Redirect after login
+            localStorage.setItem("token", data.access_token);
+            window.location.href = "index.html";  // Redirect on successful login
         }
 
-
+        alert(data.message || data.error);
     } catch (error) {
         console.error("Error:", error);
         alert("An error occurred.");
     }
+}
+async function logout() {
+    localStorage.removeItem("token");  // Remove JWT token
+    alert("Logged out successfully.");
+    window.location.href = "index.html";  // Redirect to homepage
 }
 
 
@@ -207,7 +203,7 @@ async function fetchProtected() {
 async function logout() {
     localStorage.removeItem("token"); // Remove JWT
     alert("Logged out successfully.");
-    window.location.href = "login.html"; // Redirect after logout
+    window.location.href = "index.html"; // Redirect after logout
 }
 
 
