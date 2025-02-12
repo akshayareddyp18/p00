@@ -22,6 +22,21 @@ document.getElementById("logout-btn")?.addEventListener("click", async (event) =
     logout();
 });
 
+document.getElementById("signup-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent form from submitting normally
+
+    // Get form values
+    const username = document.getElementById("signup-username").value;
+    const password = document.getElementById("signup-password").value;
+    const email = document.getElementById("signup-email").value;
+
+    // Simulate saving user data (you would typically send this to a backend)
+    const userData = { username, password, email };
+    localStorage.setItem("user", JSON.stringify(userData)); // Store in localStorage for testing
+
+    // Redirect to login page
+    window.location.href = "login.html";
+});
 
 
 async function login() {
